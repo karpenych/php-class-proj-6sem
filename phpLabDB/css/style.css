@@ -40,6 +40,13 @@ h2 {
     font-weight: bold;
 }
 
+h3 {
+    color: var(--h-Color);
+    font-size: 24px;
+    text-align: center;
+    font-weight: bold;
+}
+
 p{
     padding: 3% 5%;
     color: var(--h-Color);

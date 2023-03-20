@@ -26,7 +26,7 @@ function load_menu(){
 }
 
 function load_index_content(){
-    print "<p>Это главная страница</p>";
+    print "<br><br><br><h3>Это главная страница</h3><br><br><br>";
 }
 
 function load_createDB_content(){
@@ -36,7 +36,7 @@ function load_createDB_content(){
             <legend><b>СОЗДАТЬ БД</b></legend>
             <input type="submit" name="bt_create" value="создать"/>
             <input type="submit" name="bt_delete" value="удалить"/>
-            <?php CreateDB(); DeleteDB() ?>
+            <?php create_delete_db(); ?>
         </fieldset>
     </form>
 <?php
