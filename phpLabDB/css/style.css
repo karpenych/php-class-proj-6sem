@@ -1,0 +1,180 @@
+:root{
+    --h-Color: rgb(56, 44, 16);
+    --bloor-Color: rgba(173, 199, 103, 0.463);
+    --border-color: rgb(1, 80, 27);
+}
+
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+}
+
+html{
+    background-image: url(../img/bg.png);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+/*--------------------------TEXT------------------------------------*/
+
+h1 {
+    color: var(--h-Color);
+    font-size: 32px;
+    text-align: center;
+    font-weight: bold;
+}
+
+h2 {
+    color: var(--h-Color);
+    font-size: 28px;
+    text-align: center;
+    font-weight: bold;
+}
+
+p{
+    padding: 3% 5%;
+    color: var(--h-Color);
+    font-size: 20px;
+    text-align: center;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: normal;
+}
+
+
+/*----------------------- HEADER ------------------------------ */
+
+header{
+    height: 9%;
+    padding: 10px;
+    background-color: var(--bloor-Color);
+    backdrop-filter: blur(3px);
+    border: 4px solid var(--border-color);
+}
+
+/*----------------------- NAV ------------------------------ */
+
+nav{
+    height: 12%;
+    padding: 10px;
+    border-left: 4px solid var(--border-color);
+    border-right: 4px solid var(--border-color);
+    border-bottom: 3px dashed  var(--border-color);
+}
+
+/*----------------------- ARTICLE ------------------------------ */
+
+article{
+    min-height: 70%;
+    padding: 10px;
+    overflow-x:auto;
+    overflow-y: hidden;
+    border-left: 4px solid var(--border-color);
+    border-right: 4px solid var(--border-color);
+}
+
+/*----------------------- FOOTER ------------------------------ */
+
+footer{
+    height: 9%;
+    padding: 10px;
+    background-color: var(--bloor-Color);
+    backdrop-filter: blur(5px);
+    border: 4px solid var(--border-color);
+}
+
+footer h2 {
+    text-align: right;
+    margin-right: 4%;
+}
+
+
+/*------------------------FORM-------------------------------------*/
+
+fieldset{
+    width: 60%;
+    max-width: 60%;
+    margin-left: 20%;
+    margin-top: 1%;
+    border-color: var(--border-color);
+    padding: 1%;
+    background-color: var(--bloor-Color);
+    backdrop-filter: blur(5px);
+}
+
+fieldset > legend{
+    margin-left: 5%;
+    font-size: 24px;
+    color: #15130e;
+}
+
+fieldset > select{
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 20px;
+    width: auto;
+    background-color: var(--bloor-Color);
+    border: 3px solid var(--border-color);
+}
+
+fieldset > input[type = submit], input[type = text]{
+    padding: 0.3%;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 20px;
+    background-color: var(--bloor-Color);
+    border-color: var(--border-color);
+}
+
+fieldset > ::placeholder {
+    color: rgb(162, 145, 106);
+ }
+
+fieldset > label{
+    color: var(--h-Color);
+    font-size: 20px;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: normal;
+}
+
+/*------------------------FORM_LR1-------------------------------------*/
+
+#fslb1 > #cinema_descr{
+    font-family:'lucida grande',tahoma,verdana,arial,sans-serif;
+    font-size: 20px;
+    font-weight: normal;
+    color: #15130e;
+    text-align: justify;
+    margin-top: 3%;
+    padding:0 5%;
+}
+
+#fslb1 > #cinema_name{
+    margin-left: 5%;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: bold;
+    color: var(--h-Color);
+    font-size: 24px;
+}
+
+#fslb1 > #sheduler_text{
+    padding: 2%;
+    text-align: center;
+}
+
+/*------------------------FORM_LR2_2-------------------------------------*/
+
+#fslb2_2 > div{
+    font-family: monospace, monospace;
+    font-size: 20px;
+    font-weight: normal;
+    color: #15130e;
+    margin-top: 3%;
+    padding:0 2%;
+}
