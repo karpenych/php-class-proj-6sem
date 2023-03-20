@@ -73,5 +73,14 @@ function DeleteDB(){
     }
 }
 
+function CreateTables(){
+
+}
+
+function DeleteTables(){
+    
+}
+
+
 
 ?>
