@@ -45,9 +45,11 @@ function load_createDB_content(){
 function load_createTables_content(){
 ?>
     <form method="post" action="">
-    <fieldset id="fslb2_1">
-        <legend><b>ОПРЕДЕЛИТЕЛЬ ДНЕЙ В ГОДУ</b></legend>
-
+    <fieldset>
+        <legend><b>СОЗДАТЬ ТАБЛИЦЫ</b></legend>
+        <input type="submit" name="bt_create" value="создать"/>
+        <input type="submit" name="bt_delete" value="удалить"/>
+        <?php create_delete_tables(); ?>
     </fieldset>
     </form>
 <?php
@@ -56,7 +58,7 @@ function load_createTables_content(){
 function load_fillTables_content(){
 ?>
     <form method="post" action="">
-    <fieldset id="fslb2_2">
+    <fieldset>
         <legend><b>Случайные заглавные английские буквы</b></legend>
 
     </fieldset>
@@ -67,7 +69,7 @@ function load_fillTables_content(){
 function load_showTables_content(){
 ?>
     <form method="post" action="">
-    <fieldset id="fslb3_1">
+    <fieldset>
         <legend><b>Строки-1</b></legend>
 
     </fieldset>
