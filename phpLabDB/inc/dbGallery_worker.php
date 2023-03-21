@@ -27,7 +27,7 @@ function CreateDB(){
 
         $DBH->exec("CREATE DATABASE `$dbname`;
                     CREATE USER '$user'@'$host' IDENTIFIED BY '$pass';
-                    GRANT SELECT,UPDATE,INSERT ON `$dbname`.* TO '$user'@'$host';
+                    GRANT ALL ON `$dbname`.* TO '$user'@'$host';
                     FLUSH PRIVILEGES;");
 
         print "<p>База данных \"Галерея\" и пользователь успешно созданы</p>
