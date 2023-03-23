@@ -59,9 +59,64 @@ function load_fillTables_content(){
 ?>
     <form method="post" action="">
     <fieldset>
-        <legend><b>Случайные заглавные английские буквы</b></legend>
-
+        <legend><b>ВЫСТАВКИ</b></legend>
+        <div class = "field">
+            <input type="text" size="15" name="inp_name" placeholder="Название">
+        </div>
+        <div class = "field">
+            <input type="datetime-local" name="inp_date">
+        </div>
+        <div class = "field">
+            <input type="text" size="30" name="inp_address" placeholder="Адрес">
+        </div>
+        <input type="submit" name="bt_exhibitions" value="заполнить"/>
     </fieldset>
+    <fieldset>
+        <legend><b>ЗАЛЫ</b></legend>
+        <div class = "field">
+            <input type="text" size="3" name="inp_number" placeholder="№">
+        </div>
+        <div class = "field">
+            <SELECT name="exhibition_selector">
+                <option value="-1">Выставка</option>
+                <?php GetExhibitions() ?>
+            </SELECT>
+        </div>
+        <input type="submit" name="bt_halls" value="заполнить"/>
+    </fieldset>
+    <fieldset>
+        <legend><b>ХУДОЖНИКИ</b></legend>
+        <div class = "field">
+            <input type="text" size="15" name="inp_sername" placeholder="Фамилия">
+        </div>
+        <div class = "field">
+            <input type="text" size="15" name="inp_name" placeholder="Имя">
+        </div>
+        <input type="submit" name="bt_artists" value="заполнить"/>
+    </fieldset>
+    <fieldset>
+        <legend><b>КАРТИНЫ</b></legend>
+        <div class = "field">
+            <input type="text" size="15" name="inp_name" placeholder="Название">
+        </div>
+        <div class = "field">
+            <input type="number" size="15" name="inp_cost" placeholder="Цена">
+        </div>
+        <div class = "field">
+            <SELECT name="artist_selector">
+                <option value="-1">Художник</option>
+                <?php GetArtists() ?>
+            </SELECT>
+        </div>
+        <div class = "field">
+            <SELECT name="hall_selector">
+                <option value="-1">Зал</option>
+                <?php GetHalls() ?>
+            </SELECT>
+        </div>
+        <input type="submit" name="bt_paintings" value="заполнить"/>
+    </fieldset>
+    <?php FillTable(); ?>
     </form>
 <?php
 }

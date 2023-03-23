@@ -123,7 +123,7 @@ fieldset > legend{
     color: #15130e;
 }
 
-fieldset > select{
+select{
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-size: 20px;
     width: auto;
@@ -131,7 +131,7 @@ fieldset > select{
     border: 3px solid var(--border-color);
 }
 
-fieldset > input[type = submit], input[type = text]{
+fieldset > input[type = submit], input[type = text], input[type = datetime-local], input[type = number]{
     padding: 0.3%;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-size: 20px;
@@ -139,8 +139,8 @@ fieldset > input[type = submit], input[type = text]{
     border-color: var(--border-color);
 }
 
-fieldset > ::placeholder {
-    color: rgb(162, 145, 106);
+::placeholder{
+    color: rgb(111, 167, 50);
  }
 
 fieldset > label{
@@ -150,38 +150,6 @@ fieldset > label{
     font-weight: normal;
 }
 
-/*------------------------FORM_LR1-------------------------------------*/
-
-#fslb1 > #cinema_descr{
-    font-family:'lucida grande',tahoma,verdana,arial,sans-serif;
-    font-size: 20px;
-    font-weight: normal;
-    color: #15130e;
-    text-align: justify;
-    margin-top: 3%;
-    padding:0 5%;
-}
-
-#fslb1 > #cinema_name{
-    margin-left: 5%;
-    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    font-weight: bold;
-    color: var(--h-Color);
-    font-size: 24px;
-}
-
-#fslb1 > #sheduler_text{
-    padding: 2%;
-    text-align: center;
-}
-
-/*------------------------FORM_LR2_2-------------------------------------*/
-
-#fslb2_2 > div{
-    font-family: monospace, monospace;
-    font-size: 20px;
-    font-weight: normal;
-    color: #15130e;
-    margin-top: 3%;
-    padding:0 2%;
+.field{
+    margin-bottom: 2%;
 }

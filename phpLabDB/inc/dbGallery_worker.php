@@ -5,6 +5,11 @@ $user = 'dbgallery_admin';
 $pass = 'Qwerqwer1';
 $dbname = 'dbgallery';
 
+$table_artists = "Artists";
+$table_exhibitions = "Exhibitions";
+$table_halls = "Halls";
+$table_paintings = "Paintings";
+
 function create_delete_db(){
     if(isset($_POST['bt_create'])){
         CreateDB();
@@ -80,6 +85,11 @@ function CreateTables(){
     global $user;
     global $pass;
 
+    global $table_artists;
+    global $table_exhibitions;
+    global $table_halls;
+    global $table_paintings;
+
     try {
         $DBH = new PDO("mysql:host=$host;dbname=$dbname;charset=UTF8", $user, $pass);
         $DBH->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
@@ -88,7 +98,6 @@ function CreateTables(){
         $DBH->exec($sql);
 
         // TABLE "Artists"
-        $table_artists = "Artists";
         $sql = "CREATE table $table_artists(
             sername VARCHAR(100) PRIMARY KEY,
             name    VARCHAR(100));";
@@ -96,7 +105,6 @@ function CreateTables(){
         print "<p>Таблица \"$table_artists\" успешно создана: <br>$sql</p>";
 
         // TABLE "Exhibitions"
-        $table_exhibitions = "Exhibitions";
         $sql = "CREATE table $table_exhibitions(
             name    VARCHAR(100) PRIMARY KEY,
             date    DATETIME NOT NULL,
@@ -105,7 +113,6 @@ function CreateTables(){
         print "<p>Таблица \"$table_exhibitions\" успешно создана: <br>$sql</p>";
 
         // TABLE "Halls"
-        $table_halls = "Halls";
         $sql = "CREATE table $table_halls(
             number   TINYINT PRIMARY KEY,
             exhibition VARCHAR(100) NOT NULL,
@@ -114,7 +121,6 @@ function CreateTables(){
         print "<p>Таблица \"$table_halls\" успешно создана: <br>$sql</p>";
 
         // TABLE "Paintings"
-        $table_paintings = "Paintings";
         $sql = "CREATE table $table_paintings(
             name      VARCHAR(100) PRIMARY KEY,
             cost      DECIMAL(20,2),
@@ -136,6 +142,11 @@ function DeleteTables(){
     global $user;
     global $pass;
 
+    global $table_artists;
+    global $table_exhibitions;
+    global $table_halls;
+    global $table_paintings;
+
     try {
         $DBH = new PDO("mysql:host=$host;dbname=$dbname;charset=UTF8", $user, $pass);
         $DBH->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
@@ -144,25 +155,21 @@ function DeleteTables(){
         $DBH->exec($sql);
 
         // TABLE "Artists"
-        $table_artists = "Artists";
         $sql = "DROP TABLE $table_artists";
         $DBH->exec($sql);
         print "<p>Таблица \"$table_artists\" успешно удалена: <br>$sql</p>";
 
         // TABLE "Exhibitions"
-        $table_exhibitions = "Exhibitions";
         $sql = "DROP TABLE $table_exhibitions";
         $DBH->exec($sql);
         print "<p>Таблица \"$table_exhibitions\" успешно удалена: <br>$sql</p>";
 
         // TABLE "Halls"
-        $table_halls = "Halls";
         $sql = "DROP TABLE $table_halls";
         $DBH->exec($sql);
         print "<p>Таблица \"$table_halls\" успешно удалена: <br>$sql</p>";
 
         // TABLE "Paintings"
-        $table_paintings = "Paintings";
         $sql = "DROP TABLE $table_paintings";
         $DBH->exec($sql);
         print "<p>Таблица \"$table_paintings\" успешно удалена: <br>$sql</p>";
@@ -172,6 +179,117 @@ function DeleteTables(){
     }
 }
 
+function FillTable(){
+    print "<p>ВЫЗВАЛАСЬ</p>";
+
+    global $host;
+    global $dbname;
+    global $user;
+    global $pass;
+
+    global $table_artists;
+    global $table_exhibitions;
+    global $table_halls;
+    global $table_paintings;
+
+    try{
+        $DBH = new PDO("mysql:host=$host;dbname=$dbname;charset=UTF8", $user, $pass);
+        $DBH->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
+        print "<p>ПОДКЛЮЧИЛОСЬ</p>";
+    }
+    catch(PDOException $e){
+        print "<p>ERROR: {$e->getMessage()}</p>";
+    }
+
+    if(isset($_POST['bt_exhibitions']) && isset($_POST['inp_name']) && isset($_POST['inp_date']) && isset($_POST['inp_address'])){
+        print "<p>ЗАШЛО В Exhibitions</p>";
+
+        try{
+            $sql = "INSERT INTO $table_exhibitions SET
+                    name = '{$_POST['inp_name']}',
+                    date = '{$_POST['inp_date']}',
+                    address = '{$_POST['inp_address']}';";
+            $DBH->exec($sql);
+            print "<p>Вставка прошла успешно!!!</p>";
+            header('Location: '.$_SERVER['REQUEST_URI']);
+        }
+        catch(PDOException $e){
+            print "<p>ERROR: {$e->getMessage()}</p>";
+        }
+    }
+
+    if(isset($_POST['bt_halls']) && isset($_POST['inp_number']) && isset($_POST['exhibition_selector'])){
+        print "<p>ЗАШЛО В Halls</p>";
+        try{
+            $sql = "INSERT INTO $table_halls SET
+                    number = `{$_POST['inp_number']}`,
+                    exhibition = `{$_POST['exhibition_selector']}`;";
+            $DBH->exec($sql);
+            print "<p>Вставка прошла успешно!!!</p>";
+        }
+        catch(PDOException $e){
+            print "<p>ERROR: {$e->getMessage()}</p>";
+        }
+    }
+
+}
+
+function GetExhibitions(){
+    global $host;
+    global $dbname;
+    global $user;
+    global $pass;
+    global $table_exhibitions;
+
+    try{
+        $DBH = new PDO("mysql:host=$host;dbname=$dbname;charset=UTF8", $user, $pass);
+        $exhibitions = $DBH->query("SELECT * FROM `$table_exhibitions`");
+
+        while($exhibition = $exhibitions->fetch(PDO::FETCH_ASSOC))
+            print "<option value=\"{$exhibition['name']}\">{$exhibition['name']}</option>\n";
+    }
+    catch(PDOException $e){
+        print "<p>ERROR: {$e->getMessage()}</p>";
+    }
+}
+
+function GetArtists(){
+    global $host;
+    global $dbname;
+    global $user;
+    global $pass;
+    global $table_artists;
+
+    try{
+        $DBH = new PDO("mysql:host=$host;dbname=$dbname;charset=UTF8", $user, $pass);
+        $artists = $DBH->query("SELECT * FROM `$table_artists`");
+
+        while($artist = $artists->fetch(PDO::FETCH_ASSOC))
+            print "<option value=\"{$artist['name']}\">{$artist['name']}</option>\n";
+    }
+    catch(PDOException $e){
+        print "<p>ERROR: {$e->getMessage()}</p>";
+    }
+}
+
+function GetHalls(){
+    global $host;
+    global $dbname;
+    global $user;
+    global $pass;
+    global $table_halls;
+
+    try{
+        $DBH = new PDO("mysql:host=$host;dbname=$dbname;charset=UTF8", $user, $pass);
+        $halls = $DBH->query("SELECT * FROM `$table_halls`");
+
+        while($hall = $halls->fetch(PDO::FETCH_ASSOC))
+            print "<option value=\"{$hall['name']}\">{$hall['name']}</option>\n";
+    }
+    catch(PDOException $e){
+        print "<p>ERROR: {$e->getMessage()}</p>";
+    }
+}
 
 
 
