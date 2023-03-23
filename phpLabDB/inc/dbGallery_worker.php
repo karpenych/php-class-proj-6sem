@@ -84,42 +84,44 @@ function CreateTables(){
         $DBH = new PDO("mysql:host=$host;dbname=$dbname;charset=UTF8", $user, $pass);
         $DBH->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
 
+        $sql = "SET foreign_key_checks = 1;";
+        $DBH->exec($sql);
+
         // TABLE "Artists"
         $table_artists = "Artists";
         $sql = "CREATE table $table_artists(
-            id      INT(11) AUTO_INCREMENT PRIMARY KEY,
-            name    VARCHAR(100) NOT NULL,
-            sername VARCHAR(100) NOT NULL);";
+            sername VARCHAR(100) PRIMARY KEY,
+            name    VARCHAR(100));";
         $DBH->exec($sql);
         print "<p>Таблица \"$table_artists\" успешно создана: <br>$sql</p>";
 
         // TABLE "Exhibitions"
         $table_exhibitions = "Exhibitions";
         $sql = "CREATE table $table_exhibitions(
-            id      INT(11) AUTO_INCREMENT PRIMARY KEY,
-            name    VARCHAR(100) NOT NULL,
-            address VARCHAR(100) NOT NULL,
-            date    DATETIME NOT NULL);";
+            name    VARCHAR(100) PRIMARY KEY,
+            date    DATETIME NOT NULL,
+            address VARCHAR(100) NOT NULL);";
         $DBH->exec($sql);
         print "<p>Таблица \"$table_exhibitions\" успешно создана: <br>$sql</p>";
 
         // TABLE "Halls"
         $table_halls = "Halls";
         $sql = "CREATE table $table_halls(
-            id       INT(11) AUTO_INCREMENT PRIMARY KEY,
-            FOREIGN KEY (id_exhib) REFERENCES $table_exhibitions (id),
-            number   TINYINT NOT NULL);";
+            number   TINYINT PRIMARY KEY,
+            exhibition VARCHAR(100) NOT NULL,
+            FOREIGN KEY (exhibition) REFERENCES $table_exhibitions (name));";
         $DBH->exec($sql);
         print "<p>Таблица \"$table_halls\" успешно создана: <br>$sql</p>";
 
         // TABLE "Paintings"
         $table_paintings = "Paintings";
         $sql = "CREATE table $table_paintings(
-            id        INT(11) AUTO_INCREMENT PRIMARY KEY,
-            FOREIGN KEY (id_artist) REFERENCES $table_artists (id),
-            FOREIGN KEY (id_hall) REFERENCES $table_halls  (id),
-            name      VARCHAR(100) NOT NULL,
-            cost      DECIMAL(20,2));";
+            name      VARCHAR(100) PRIMARY KEY,
+            cost      DECIMAL(20,2),
+            artist VARCHAR(100) NOT NULL,
+            hall TINYINT NOT NULL,
+            FOREIGN KEY (artist) REFERENCES $table_artists (sername),
+            FOREIGN KEY (hall) REFERENCES $table_halls  (number));";
         $DBH->exec($sql);
         print "<p>Таблица \"$table_paintings\" успешно создана: <br>$sql</p>";
     }
@@ -137,6 +139,9 @@ function DeleteTables(){
     try {
         $DBH = new PDO("mysql:host=$host;dbname=$dbname;charset=UTF8", $user, $pass);
         $DBH->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
+
+        $sql = "SET foreign_key_checks = 0;";
+        $DBH->exec($sql);
 
         // TABLE "Artists"
         $table_artists = "Artists";
