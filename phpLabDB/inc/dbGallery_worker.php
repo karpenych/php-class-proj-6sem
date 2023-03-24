@@ -180,8 +180,6 @@ function DeleteTables(){
 }
 
 function FillTable(){
-    print "<p>ВЫЗВАЛАСЬ</p>";
-
     global $host;
     global $dbname;
     global $user;
@@ -195,7 +193,6 @@ function FillTable(){
     try{
         $DBH = new PDO("mysql:host=$host;dbname=$dbname;charset=UTF8", $user, $pass);
         $DBH->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
-        print "<p>ПОДКЛЮЧИЛОСЬ</p>";
     }
     catch(PDOException $e){
         print "<p>ERROR: {$e->getMessage()}</p>";
@@ -203,15 +200,14 @@ function FillTable(){
 
     if(isset($_POST['bt_exhibitions']) && isset($_POST['inp_name']) && isset($_POST['inp_date']) && isset($_POST['inp_address'])){
         print "<p>ЗАШЛО В Exhibitions</p>";
-
         try{
             $sql = "INSERT INTO $table_exhibitions SET
                     name = '{$_POST['inp_name']}',
                     date = '{$_POST['inp_date']}',
                     address = '{$_POST['inp_address']}';";
             $DBH->exec($sql);
-            print "<p>Вставка прошла успешно!!!</p>";
             header('Location: '.$_SERVER['REQUEST_URI']);
+            print "<p>Вставка прошла успешно!!!</p>";
         }
         catch(PDOException $e){
             print "<p>ERROR: {$e->getMessage()}</p>";
@@ -225,6 +221,39 @@ function FillTable(){
                     number = `{$_POST['inp_number']}`,
                     exhibition = `{$_POST['exhibition_selector']}`;";
             $DBH->exec($sql);
+            header('Location: '.$_SERVER['REQUEST_URI']);
+            print "<p>Вставка прошла успешно!!!</p>";
+        }
+        catch(PDOException $e){
+            print "<p>ERROR: {$e->getMessage()}</p>";
+        }
+    }
+
+    if(isset($_POST['bt_artists']) && isset($_POST['inp_sername']) && isset($_POST['inp_name'])){
+        print "<p>ЗАШЛО В Artists</p>";
+        try{
+            $sql = "INSERT INTO $table_artists SET
+                    sername = `{$_POST['inp_sername']}`,
+                    name = `{$_POST['inp_name']}`;";
+            $DBH->exec($sql);
+            header('Location: '.$_SERVER['REQUEST_URI']);
+            print "<p>Вставка прошла успешно!!!</p>";
+        }
+        catch(PDOException $e){
+            print "<p>ERROR: {$e->getMessage()}</p>";
+        }
+    }
+
+    if(isset($_POST['bt_paintings']) && isset($_POST['inp_name']) && isset($_POST['inp_cost']) && isset($_POST['artist_selector']) && isset($_POST['hall_selector'])){
+        print "<p>ЗАШЛО В Paintings</p>";
+        try{
+            $sql = "INSERT INTO $table_paintings SET
+                    name = `{$_POST['inp_name']}`,
+                    cost = `{$_POST['inp_cost']}`,
+                    artist = `{$_POST['artist_selector']}`,
+                    hall = `{$_POST['hall_selector']}`;";
+            $DBH->exec($sql);
+            header('Location: '.$_SERVER['REQUEST_URI']);
             print "<p>Вставка прошла успешно!!!</p>";
         }
         catch(PDOException $e){
