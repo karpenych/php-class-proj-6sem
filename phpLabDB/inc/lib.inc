@@ -61,7 +61,7 @@ function load_fillTables_content(){
     <fieldset>
         <legend><b>ВЫСТАВКИ</b></legend>
         <div class = "field">
-            <input type="text" size="15" name="inp_name" placeholder="Название">
+            <input type="text" size="15" name="inp_name_exhib" placeholder="Название">
         </div>
         <div class = "field">
             <input type="datetime-local" name="inp_date">
@@ -79,7 +79,7 @@ function load_fillTables_content(){
         <div class = "field">
             <SELECT name="exhibition_selector">
                 <option value="-1">Выставка</option>
-                <?php GetExhibitions() ?>
+                <?php GetExhibitions(); ?>
             </SELECT>
         </div>
         <input type="submit" name="bt_halls" value="заполнить"/>
@@ -90,14 +90,14 @@ function load_fillTables_content(){
             <input type="text" size="15" name="inp_sername" placeholder="Фамилия">
         </div>
         <div class = "field">
-            <input type="text" size="15" name="inp_name" placeholder="Имя">
+            <input type="text" size="15" name="inp_name_artist" placeholder="Имя">
         </div>
         <input type="submit" name="bt_artists" value="заполнить"/>
     </fieldset>
     <fieldset>
         <legend><b>КАРТИНЫ</b></legend>
         <div class = "field">
-            <input type="text" size="15" name="inp_name" placeholder="Название">
+            <input type="text" size="15" name="inp_name_painting" placeholder="Название">
         </div>
         <div class = "field">
             <input type="number" size="15" name="inp_cost" placeholder="Цена">
@@ -105,13 +105,13 @@ function load_fillTables_content(){
         <div class = "field">
             <SELECT name="artist_selector">
                 <option value="-1">Художник</option>
-                <?php GetArtists() ?>
+                <?php GetArtists(); ?>
             </SELECT>
         </div>
         <div class = "field">
             <SELECT name="hall_selector">
                 <option value="-1">Зал</option>
-                <?php GetHalls() ?>
+                <?php GetHalls(); ?>
             </SELECT>
         </div>
         <input type="submit" name="bt_paintings" value="заполнить"/>
@@ -124,9 +124,29 @@ function load_fillTables_content(){
 function load_showTables_content(){
 ?>
     <form method="post" action="">
+        <fieldset>
+        <legend><b>ВЫСТАВКИ</b></legend>
+        <table>
+            <?php ShowExhibitions(); ?>
+        </table>
+    </fieldset>
     <fieldset>
-        <legend><b>Строки-1</b></legend>
-
+        <legend><b>ЗАЛЫ</b></legend>
+        <table>
+            <?php ShowHalls(); ?>
+        </table>
+    </fieldset>
+    <fieldset>
+        <legend><b>ХУДОЖНИКИ</b></legend>
+        <table>
+            <?php ShowArtists(); ?>
+        </table>
+    </fieldset>
+    <fieldset>
+        <legend><b>КАРТИНЫ</b></legend>
+        <table>
+            <?php ShowPaintings(); ?>
+        </table>
     </fieldset>
     </form>
 <?php

@@ -100,7 +100,7 @@ function CreateTables(){
         // TABLE "Artists"
         $sql = "CREATE table $table_artists(
             sername VARCHAR(100) PRIMARY KEY,
-            name    VARCHAR(100));";
+            name    VARCHAR(100) NOT NULL);";
         $DBH->exec($sql);
         print "<p>Таблица \"$table_artists\" успешно создана: <br>$sql</p>";
 
@@ -114,7 +114,7 @@ function CreateTables(){
 
         // TABLE "Halls"
         $sql = "CREATE table $table_halls(
-            number   TINYINT PRIMARY KEY,
+            number     TINYINT PRIMARY KEY,
             exhibition VARCHAR(100) NOT NULL,
             FOREIGN KEY (exhibition) REFERENCES $table_exhibitions (name));";
         $DBH->exec($sql);
@@ -122,10 +122,10 @@ function CreateTables(){
 
         // TABLE "Paintings"
         $sql = "CREATE table $table_paintings(
-            name      VARCHAR(100) PRIMARY KEY,
-            cost      DECIMAL(20,2),
+            name   VARCHAR(100) PRIMARY KEY,
+            cost   DECIMAL(20,2) NOT NULL,
             artist VARCHAR(100) NOT NULL,
-            hall TINYINT NOT NULL,
+            hall   TINYINT NOT NULL,
             FOREIGN KEY (artist) REFERENCES $table_artists (sername),
             FOREIGN KEY (hall) REFERENCES $table_halls  (number));";
         $DBH->exec($sql);
@@ -198,16 +198,14 @@ function FillTable(){
         print "<p>ERROR: {$e->getMessage()}</p>";
     }
 
-    if(isset($_POST['bt_exhibitions']) && isset($_POST['inp_name']) && isset($_POST['inp_date']) && isset($_POST['inp_address'])){
-        print "<p>ЗАШЛО В Exhibitions</p>";
+    if(isset($_POST['bt_exhibitions']) && isset($_POST['inp_name_exhib']) && isset($_POST['inp_date']) && isset($_POST['inp_address'])){
         try{
             $sql = "INSERT INTO $table_exhibitions SET
-                    name = '{$_POST['inp_name']}',
+                    name = '{$_POST['inp_name_exhib']}',
                     date = '{$_POST['inp_date']}',
                     address = '{$_POST['inp_address']}';";
             $DBH->exec($sql);
             header('Location: '.$_SERVER['REQUEST_URI']);
-            print "<p>Вставка прошла успешно!!!</p>";
         }
         catch(PDOException $e){
             print "<p>ERROR: {$e->getMessage()}</p>";
@@ -215,46 +213,40 @@ function FillTable(){
     }
 
     if(isset($_POST['bt_halls']) && isset($_POST['inp_number']) && isset($_POST['exhibition_selector'])){
-        print "<p>ЗАШЛО В Halls</p>";
         try{
             $sql = "INSERT INTO $table_halls SET
-                    number = `{$_POST['inp_number']}`,
-                    exhibition = `{$_POST['exhibition_selector']}`;";
+                    number = '{$_POST['inp_number']}',
+                    exhibition = '{$_POST['exhibition_selector']}';";
             $DBH->exec($sql);
             header('Location: '.$_SERVER['REQUEST_URI']);
-            print "<p>Вставка прошла успешно!!!</p>";
         }
         catch(PDOException $e){
             print "<p>ERROR: {$e->getMessage()}</p>";
         }
     }
 
-    if(isset($_POST['bt_artists']) && isset($_POST['inp_sername']) && isset($_POST['inp_name'])){
-        print "<p>ЗАШЛО В Artists</p>";
+    if(isset($_POST['bt_artists']) && isset($_POST['inp_sername']) && isset($_POST['inp_name_artist'])){
         try{
             $sql = "INSERT INTO $table_artists SET
-                    sername = `{$_POST['inp_sername']}`,
-                    name = `{$_POST['inp_name']}`;";
+                    sername = '{$_POST['inp_sername']}',
+                    name    = '{$_POST['inp_name_artist']}';";
             $DBH->exec($sql);
             header('Location: '.$_SERVER['REQUEST_URI']);
-            print "<p>Вставка прошла успешно!!!</p>";
         }
         catch(PDOException $e){
             print "<p>ERROR: {$e->getMessage()}</p>";
         }
     }
 
-    if(isset($_POST['bt_paintings']) && isset($_POST['inp_name']) && isset($_POST['inp_cost']) && isset($_POST['artist_selector']) && isset($_POST['hall_selector'])){
-        print "<p>ЗАШЛО В Paintings</p>";
+    if(isset($_POST['bt_paintings']) && isset($_POST['inp_name_painting']) && isset($_POST['inp_cost']) && isset($_POST['artist_selector']) && isset($_POST['hall_selector'])){
         try{
             $sql = "INSERT INTO $table_paintings SET
-                    name = `{$_POST['inp_name']}`,
-                    cost = `{$_POST['inp_cost']}`,
-                    artist = `{$_POST['artist_selector']}`,
-                    hall = `{$_POST['hall_selector']}`;";
+                    name = '{$_POST['inp_name_painting']}',
+                    cost = '{$_POST['inp_cost']}',
+                    artist = '{$_POST['artist_selector']}',
+                    hall = '{$_POST['hall_selector']}';";
             $DBH->exec($sql);
             header('Location: '.$_SERVER['REQUEST_URI']);
-            print "<p>Вставка прошла успешно!!!</p>";
         }
         catch(PDOException $e){
             print "<p>ERROR: {$e->getMessage()}</p>";
@@ -275,7 +267,7 @@ function GetExhibitions(){
         $exhibitions = $DBH->query("SELECT * FROM `$table_exhibitions`");
 
         while($exhibition = $exhibitions->fetch(PDO::FETCH_ASSOC))
-            print "<option value=\"{$exhibition['name']}\">{$exhibition['name']}</option>\n";
+            print "<option value=\"{$exhibition['name']}\">{$exhibition['name']}</option>";
     }
     catch(PDOException $e){
         print "<p>ERROR: {$e->getMessage()}</p>";
@@ -294,7 +286,7 @@ function GetArtists(){
         $artists = $DBH->query("SELECT * FROM `$table_artists`");
 
         while($artist = $artists->fetch(PDO::FETCH_ASSOC))
-            print "<option value=\"{$artist['name']}\">{$artist['name']}</option>\n";
+            print "<option value=\"{$artist['sername']}\">{$artist['sername']}</option>\n";
     }
     catch(PDOException $e){
         print "<p>ERROR: {$e->getMessage()}</p>";
@@ -313,14 +305,133 @@ function GetHalls(){
         $halls = $DBH->query("SELECT * FROM `$table_halls`");
 
         while($hall = $halls->fetch(PDO::FETCH_ASSOC))
-            print "<option value=\"{$hall['name']}\">{$hall['name']}</option>\n";
+            print "<option value=\"{$hall['number']}\">{$hall['number']}</option>\n";
     }
     catch(PDOException $e){
         print "<p>ERROR: {$e->getMessage()}</p>";
     }
 }
 
+function ShowExhibitions(){
+    global $host;
+    global $dbname;
+    global $user;
+    global $pass;
 
+    global $table_exhibitions;
 
+    try{
+        $DBH = new PDO("mysql:host=$host;dbname=$dbname;charset=UTF8", $user, $pass);
+        $exhibitions = $DBH->query("SELECT * FROM `$table_exhibitions`");
+        print "<tr>
+                    <th>Название</th>
+                    <th>Дата</th>
+                    <th>Адрес</th>
+                </tr> ";
+        while($exhibition = $exhibitions->fetch(PDO::FETCH_ASSOC)){
+            print"
+            <tr>
+                <td>{$exhibition['name']}</td>
+                <td>{$exhibition['date']}</td>
+                <td>{$exhibition['address']}</td>
+            </tr>
+            ";
+        }
+    }
+    catch (PDOException $e) {
+        print "<p>ERROR: {$e->getMessage()}</p>";
+    }
+}
+
+function ShowHalls(){
+    global $host;
+    global $dbname;
+    global $user;
+    global $pass;
+
+    global $table_halls;
+
+    try{
+        $DBH = new PDO("mysql:host=$host;dbname=$dbname;charset=UTF8", $user, $pass);
+        $halls = $DBH->query("SELECT * FROM `$table_halls`");
+        print "<tr>
+                    <th>Номер</th>
+                    <th>Выставка</th>
+                </tr> ";
+        while($hall = $halls->fetch(PDO::FETCH_ASSOC)){
+            print"
+            <tr>
+                <td>{$hall['number']}</td>
+                <td>{$hall['exhibition']}</td>
+            </tr>
+            ";
+        }
+    }
+    catch (PDOException $e) {
+        print "<p>ERROR: {$e->getMessage()}</p>";
+    }
+}
+
+function ShowArtists(){
+    global $host;
+    global $dbname;
+    global $user;
+    global $pass;
+
+    global $table_artists;
+
+    try{
+        $DBH = new PDO("mysql:host=$host;dbname=$dbname;charset=UTF8", $user, $pass);
+        $artists = $DBH->query("SELECT * FROM `$table_artists`");
+        print "<tr>
+                    <th>Фамилия</th>
+                    <th>Имя</th>
+                </tr> ";
+        while($artist = $artists->fetch(PDO::FETCH_ASSOC)){
+            print"
+            <tr>
+                <td>{$artist['sername']}</td>
+                <td>{$artist['name']}</td>
+            </tr>
+            ";
+        }
+    }
+    catch (PDOException $e) {
+        print "<p>ERROR: {$e->getMessage()}</p>";
+    }
+}
+
+function ShowPaintings(){
+    global $host;
+    global $dbname;
+    global $user;
+    global $pass;
+
+    global $table_paintings;
+
+    try{
+        $DBH = new PDO("mysql:host=$host;dbname=$dbname;charset=UTF8", $user, $pass);
+        $paintings = $DBH->query("SELECT * FROM `$table_paintings`");
+        print "<tr>
+                    <th>Название</th>
+                    <th>Цена</th>
+                    <th>Художник</th>
+                    <th>Залл</th>
+                </tr> ";
+        while($painting = $paintings->fetch(PDO::FETCH_ASSOC)){
+            print"
+            <tr>
+                <td>{$painting['name']}</td>
+                <td>{$painting['cost']}</td>
+                <td>{$painting['artist']}</td>
+                <td>{$painting['hall']}</td>
+            </tr>
+            ";
+        }
+    }
+    catch (PDOException $e) {
+        print "<p>ERROR: {$e->getMessage()}</p>";
+    }
+}
 
 ?>
