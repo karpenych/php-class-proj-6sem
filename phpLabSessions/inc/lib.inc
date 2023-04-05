@@ -42,10 +42,10 @@ function load_input_content(){
             <input type="text" size="15" name="inp_photo" placeholder="Фото">
         </div>
         <div class = "field">
-            <input type="text" size="15" name="inp_time" placeholder="Время">
+            <input type="datetime-local" size="15" name="inp_time" placeholder="Время">
         </div>
         <div class = "field">
-            <input type="text" size="15" name="inp_cost" placeholder="Стоимость">
+            <input type="number" size="15" name="inp_cost" placeholder="Стоимость">
         </div>
         <input type="submit" name="bt_submit" value="ввести"/>
     </fieldset>
@@ -70,9 +70,9 @@ function load_output_content(){
     <fieldset>
         <legend><b>ИСПОЛЬЗОВАНИЕ ПЕРЕМЕННЫХ СЕССИИ</b></legend>
 <?php
-        print "<p>Ваша услуга: \"{$$_SESSION['name']}\"<br>
+        print "<p>Ваша услуга: \"{$_SESSION['name']}\"<br>
                 Информация:</p><p>";
-        foreach($_SESSION['arr'] as $key => $value){
+        foreach($_SESSION['array'] as $key => $value){
             print "$key - $value<br>";
         }
         print "</p>";

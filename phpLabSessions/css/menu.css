@@ -5,7 +5,7 @@ nav ul {
 
 nav ul li {
     float: left;
-    background: rgb(3, 78, 15);
+    background: rgb(145, 84, 0);
     margin-top: 4px;
     padding: 4px;
     margin-right: 2px;
@@ -25,7 +25,7 @@ nav a {
 
 /* изменяем цвет фона при наведении курсора */
 nav a:hover {
-    background-color: rgb(100, 170, 78);
+    background-color: rgb(255, 173, 86);
     color: rgb(56, 44, 16);
     font-size: 15px;
     font-weight: bold;

@@ -1,6 +1,6 @@
 :root{
-    --h-Color: rgb(133, 58, 0);
-    --bloor-Color: rgba(173, 199, 103, 0.463);
+    --h-Color: rgb(75, 32, 0);
+    --bloor-Color: rgba(220, 171, 73, 0.463);
     --border-color: rgb(101, 49, 0);
 }
 
@@ -139,7 +139,7 @@ fieldset > input[type = submit], input[type = text], input[type = datetime-local
 }
 
 ::placeholder{
-    color: rgb(111, 167, 50);
+    color: rgb(105, 85, 45);
  }
 
 fieldset > label{
