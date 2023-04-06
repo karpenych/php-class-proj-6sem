@@ -26,7 +26,7 @@ function load_index_content(){
 
 function load_input_content(){
 ?>
-    <form method="post" action="">
+    <form method="post" action="" enctype='multipart/form-data'>
     <fieldset>
         <legend><b>СОЗДАНИЕ СЕССИИ</b></legend>
         <div class = "field">
@@ -39,7 +39,7 @@ function load_input_content(){
             <input type="text" size="15" name="inp_haircut" placeholder="Стрижка">
         </div>
         <div class = "field">
-            <input type="text" size="15" name="inp_photo" placeholder="Фото">
+            <input type="file" size="10" name="inp_photo" placeholder="Фото">
         </div>
         <div class = "field">
             <input type="datetime-local" size="15" name="inp_time" placeholder="Время">
@@ -53,11 +53,13 @@ function load_input_content(){
 <?php
     $_SESSION['name'] = "Стрижка";
     if (isset($_POST['bt_submit'])){
+        $img_path = "{$_SERVER['DOCUMENT_ROOT']}/php-class-proj/phpLabSessions/img/" . $_FILES["inp_photo"]["name"];
+        move_uploaded_file($_FILES["inp_photo"]["tmp_name"], $img_path);
         $arr = array(
             "Салон"     => $_POST['inp_salon'],
             "Мастер"    => $_POST['inp_master'],
             "Стрижка"   => $_POST['inp_haircut'],
-            "Фото"      => $_POST['inp_photo'],
+            "Фото"      => "img/" . $_FILES["inp_photo"]["name"],
             "Время"     => $_POST['inp_time'],
             "Стоимость" => $_POST['inp_cost']
         );
@@ -73,7 +75,11 @@ function load_output_content(){
         print "<p>Ваша услуга: \"{$_SESSION['name']}\"<br>
                 Информация:</p><p>";
         foreach($_SESSION['array'] as $key => $value){
-            print "$key - $value<br>";
+            if($key == "Фото"){
+                print "$key - <img src=\"$value\"><br>";
+            } else{
+                print "$key - $value<br>";
+            }
         }
         print "</p>";
 ?>
