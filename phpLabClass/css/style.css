@@ -1,0 +1,187 @@
+:root{
+    --h-Color: rgb(13, 98, 26);
+    --bloor-Color: rgba(243, 235, 124, 0.463);
+    --border-color: rgb(0, 46, 25);
+}
+
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+}
+
+html{
+    background-image: url(../img/bg.jpg);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+/*--------------------------TEXT------------------------------------*/
+
+h1 {
+    color: var(--h-Color);
+    font-size: 32px;
+    text-align: center;
+    font-weight: bold;
+}
+
+h2 {
+    color: var(--h-Color);
+    font-size: 28px;
+    text-align: center;
+    font-weight: bold;
+}
+
+h3 {
+    color: var(--h-Color);
+    font-size: 24px;
+    text-align: center;
+    font-weight: bold;
+}
+
+p{
+    padding: 3% 5%;
+    color: var(--h-Color);
+    font-size: 20px;
+    text-align: center;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: normal;
+}
+
+
+/*----------------------- HEADER ------------------------------ */
+
+header{
+    height: 9%;
+    padding: 10px;
+    background-color: var(--bloor-Color);
+    backdrop-filter: blur(3px);
+    border: 4px solid var(--border-color);
+}
+
+/*----------------------- NAV ------------------------------ */
+
+nav{
+    height: 12%;
+    padding: 10px;
+    border-left: 4px solid var(--border-color);
+    border-right: 4px solid var(--border-color);
+    border-bottom: 3px dashed  var(--border-color);
+}
+
+/*----------------------- ARTICLE ------------------------------ */
+
+article{
+    min-height: 70%;
+    padding: 10px;
+    overflow-x:auto;
+    overflow-y: hidden;
+    border-left: 4px solid var(--border-color);
+    border-right: 4px solid var(--border-color);
+}
+
+/*----------------------- FOOTER ------------------------------ */
+
+footer{
+    height: 9%;
+    padding: 10px;
+    background-color: var(--bloor-Color);
+    backdrop-filter: blur(5px);
+    border: 4px solid var(--border-color);
+}
+
+footer h2 {
+    text-align: right;
+    margin-right: 4%;
+}
+
+/*------------------------FORM-------------------------------------*/
+
+fieldset{
+    width: 60%;
+    max-width: 60%;
+    margin-left: 20%;
+    margin-top: 1%;
+    border-color: var(--border-color);
+    padding: 1%;
+    background-color: var(--bloor-Color);
+    backdrop-filter: blur(5px);
+}
+
+fieldset > legend{
+    margin-left: 5%;
+    font-size: 24px;
+    color: #15130e;
+}
+
+select{
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 20px;
+    width: auto;
+    background-color: var(--bloor-Color);
+    border: 3px solid var(--border-color);
+}
+
+fieldset > input[type = submit], input[type = text], input[type = datetime-local], input[type = number], input[type = file]{
+    padding: 0.3%;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 20px;
+    background-color: var(--bloor-Color);
+    border-color: var(--border-color);
+}
+
+::placeholder{
+    color: rgb(105, 85, 45);
+ }
+
+fieldset > label{
+    color: var(--h-Color);
+    font-size: 20px;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: normal;
+}
+
+.field{
+    margin-bottom: 2%;
+}
+
+/*------------------------TABLE-------------------------------------*/
+
+table, td, th{
+    border: 2px solid var(--border-color);
+}
+
+table{
+    width: 100%;
+    border-collapse: collapse;
+}
+
+td, th{
+    color: var(--h-Color);
+    font-size: 20px;
+    align-content: center;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: normal;
+    padding: 1% 1%;
+    white-space: nowrap;
+}
+
+th{
+    font-weight: bold;
+}
+
+/*------------------------IMAGES-------------------------------------*/
+
+img{
+    border: 1px solid var(--border-color);
+    width: 15%;
+    height: 21%;
+}
