@@ -1,5 +1,5 @@
 :root{
-    --h-Color: rgb(0, 0, 0);
+    --h-Color: rgb(250, 250, 250);
     --bloor-Color: rgba(65, 64, 63, 0.463);
     --border-color: rgba(40, 39, 37, 0.984);
 }
@@ -119,7 +119,7 @@ fieldset{
 fieldset > legend{
     margin-left: 5%;
     font-size: 24px;
-    color: #15130e;
+    color: #b0b0b0;
 }
 
 select{
@@ -137,6 +137,7 @@ input[type = number], input[type = file], input[type = password]{
     font-size: 20px;
     background-color: var(--bloor-Color);
     border-color: var(--border-color);
+    color: aliceblue;
 }
 
 ::placeholder{
