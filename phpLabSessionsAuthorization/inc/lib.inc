@@ -2,7 +2,7 @@
 
 $host = 'localhost';
 $user = 'root';
-$pass = 'Borisenco28#';
+$pass = 'usbw'; #<=<=<=<=<=<=<=<=<=<=<=<=  ВСТАВИТЬ СВОЙ ПАРОЛЬ ###########################
 $dbname = 'Karpenko_db_log_reg';
 $table_users = 'users';
 
